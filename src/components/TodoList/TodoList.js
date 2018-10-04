@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 
 import TodoListItem from './TodoListItem/TodoListItem';
 import NewTodo from './NewTodo/NewTodo';
+import { addTodo } from '../../store/actions/todo';
 class TodoList extends Component {
     render() {
         return (
@@ -40,7 +41,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        onAddTodo: (title) => dispatch({type: 'ADD_TODO', todoData: {title}}),
+        onAddTodo: (title) => dispatch(addTodo(title)),
     }
 }
 

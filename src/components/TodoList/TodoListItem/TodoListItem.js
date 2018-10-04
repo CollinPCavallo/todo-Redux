@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import { ListItem, ListItemText, ListItemSecondaryAction, withStyles, Checkbox, IconButton } from '@material-ui/core';
 import DeleteOutlineSharp from '@material-ui/icons/DeleteOutlineSharp';
 import { withRouter } from 'react-router-dom';
+import {removeTodo, completeTodo } from '../../../store/actions/todo'
 
 const styles = theme => ({
     root: {
@@ -16,7 +17,7 @@ const styles = theme => ({
   });
   
 
-const TodoListItem = ({todo, classes, removeTodo, completeTodo, history }) => {
+const TodoListItem = ({todo, classes, removeTodo, completeTodo, history}) => {
 
     return (
         <ListItem
@@ -25,11 +26,12 @@ const TodoListItem = ({todo, classes, removeTodo, completeTodo, history }) => {
         className={todo.completed ? [classes.completed, classes.root].join(' ') : classes.root}
         onClick={() => history.push('/edit/' + todo.id)}
         >
-        <Checkbox
-        onChange={() => completeTodo(todo.id)}
-        disabled={todo.completed}/>
     <ListItemText primary={todo.id + ' : ' + todo.title} />
     <ListItemSecondaryAction>
+        <Checkbox
+        style={{tabIndex: '-1'}}
+        onChange={() => completeTodo(todo.id)}
+        disabled={todo.completed}/>
     <IconButton aria-label='Details' >
         
     </IconButton>
@@ -42,7 +44,7 @@ const TodoListItem = ({todo, classes, removeTodo, completeTodo, history }) => {
     )
 };
 const mapDispatchToProps = dispatch => ({
-    removeTodo: (id) => dispatch({type: 'REMOVE_TODO', todoID: id}),
-    completeTodo: (id) => dispatch({type: 'COMPLETE_TODO', todoID: id})
+    removeTodo: (id) => dispatch(removeTodo(id)),
+    completeTodo: (id) => dispatch(completeTodo(id))
 })
 export default connect(null, mapDispatchToProps)(withStyles(styles)(withRouter(TodoListItem)));

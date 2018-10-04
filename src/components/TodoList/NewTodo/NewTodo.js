@@ -10,6 +10,11 @@ class NewTodo extends Component {
     onChangeHandler = e => {
         this.setState({title: e.target.value})
     }
+
+    handleSubmit = () => {
+        this.props.clicked(this.state.title)
+        this.setState({title: ''})
+    }
     render() {
         return (
             <Grid container>
@@ -21,7 +26,7 @@ class NewTodo extends Component {
                     value={this.state.title}
                     />
                     <button
-                    onClick={() => this.props.clicked(this.state.title)}
+                    onClick={() => this.handleSubmit()}
                     >Submit</button>
                 </Grid>
             </Grid>
