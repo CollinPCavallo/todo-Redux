@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { TextField, withStyles, Grid } from '@material-ui/core';
+import { TextField, Grid, Button } from '@material-ui/core';
 
 
 class NewTodo extends Component {
@@ -16,8 +16,10 @@ class NewTodo extends Component {
         this.setState({title: ''})
     }
     render() {
+        let errorMessage = this.state.title.length < 1 ? <p>Please Enter A title</p> : null;
+
         return (
-            <Grid container>
+            <Grid container justify='center' alignContent='center' spacing={24}>
                 <Grid item xs={12}>
                     <TextField 
                     id='newTodo'
@@ -25,10 +27,17 @@ class NewTodo extends Component {
                     onChange={this.onChangeHandler}
                     value={this.state.title}
                     />
-                    <button
-                    onClick={() => this.handleSubmit()}
-                    >Submit</button>
-                </Grid>
+                    {errorMessage}
+                    </Grid>
+                    <Grid item xs={12}>
+                    <Button 
+                        onClick={this.handleSubmit}
+                        variant='contained'
+                        disabled={this.state.title.length < 1}
+                        color='primary' >Add Todo</Button>
+                    </Grid>
+                    
+                
             </Grid>
         )
     }

@@ -1,13 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { ListItem, ListItemText, ListItemSecondaryAction, withStyles, Checkbox, IconButton } from '@material-ui/core';
+import { ListItem, ListItemText, ListItemSecondaryAction, withStyles, Checkbox, IconButton, Grid } from '@material-ui/core';
 import DeleteOutlineSharp from '@material-ui/icons/DeleteOutlineSharp';
 import { withRouter } from 'react-router-dom';
 import {removeTodo, completeTodo } from '../../../store/actions/todo'
 
 const styles = theme => ({
     root: {
-      width: '500px',
+      width: '100%',
       height: '100px',
       backgroundColor: theme.palette.background.paper,
     },
@@ -20,27 +20,35 @@ const styles = theme => ({
 const TodoListItem = ({todo, classes, removeTodo, completeTodo, history}) => {
 
     return (
-        <ListItem
-        button
-        dense
-        className={todo.completed ? [classes.completed, classes.root].join(' ') : classes.root}
-        onClick={() => history.push('/edit/' + todo.id)}
-        >
-    <ListItemText primary={todo.id + ' : ' + todo.title} />
-    <ListItemSecondaryAction>
-        <Checkbox
-        style={{tabIndex: '-1'}}
-        onChange={() => completeTodo(todo.id)}
-        disabled={todo.completed}/>
-    <IconButton aria-label='Details' >
+        <Grid item xs={12}>
         
-    </IconButton>
-    <IconButton aria-label="Comments">
-                  <DeleteOutlineSharp 
-                  onClick={() => removeTodo(todo.id)}/>
-    </IconButton>
-    </ListItemSecondaryAction>
-    </ListItem>
+            <Grid container alignContent='center' justify='center' spacing={24}>
+                <Grid item xs={12}>
+                <ListItem
+                button
+                dense
+                className={todo.completed ? [classes.completed, classes.root].join(' ') : classes.root}
+                onClick={() => history.push('/edit/' + todo.id)}
+                >
+                    <ListItemText primary={todo.id + ' : ' + todo.title} />
+                    <ListItemSecondaryAction>
+                    <Checkbox
+                        style={{tabIndex: '-1'}}
+                        onChange={() => completeTodo(todo.id)}
+                        checked={todo.completed}
+                        disabled={todo.completed}/>
+            <IconButton aria-label="Delete">
+                          <DeleteOutlineSharp 
+                          onClick={() => removeTodo(todo.id)}/>
+            </IconButton>
+            </ListItemSecondaryAction>
+            </ListItem>
+                        
+                </Grid>
+            </Grid>   
+            
+        
+    </Grid>
     )
 };
 const mapDispatchToProps = dispatch => ({

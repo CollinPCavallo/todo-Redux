@@ -1,4 +1,4 @@
-import * as actions from '../actions/todo' 
+
 
 const initState = {
     todos: []
@@ -10,7 +10,8 @@ const todoReducer = (state = initState, action) => {
             const newArray = {
                 title: action.title,
                 id: Math.random().toFixed(3),
-                completed: false
+                completed: false,
+                description:''
             }
             return {
                 ...state,
@@ -30,7 +31,7 @@ const todoReducer = (state = initState, action) => {
             case 'EDIT_TODO' : {
                 return {
                     ...state,
-                    todos: state.todos.map(todo=> todo.id === action.id ? {...todo, description: action.updates} : todo)
+                    todos: state.todos.map(todo=> todo.id === action.id ? {...todo, description: action.updates.description} : todo)
                 }
             }
             default:
