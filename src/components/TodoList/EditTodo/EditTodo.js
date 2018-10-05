@@ -50,6 +50,7 @@ class EditTodo extends Component {
             description,
             completed
         }
+        console.log(updatedTodo)
         this.props.onEditTodo(id, updatedTodo)
         this.props.history.push('/')
         
@@ -159,7 +160,7 @@ const mapStateToProps = (state, props) => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        onEditTodo: (id, updates) => dispatch(editOneTodo(id,updates)),
+        onEditTodo: (id, edits) => dispatch(editOneTodo(id,edits)),
         onCompleteTodo: (id) => dispatch(completeOneTodo(id)),
         onDeleteTodo: (id) => dispatch(removeTodo(id)),
         getTodos: (todos) => dispatch(getAllTodos(todos))

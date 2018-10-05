@@ -16,9 +16,8 @@ function* addTodoSaga(action) {
     try {
         const isoRes = yield api.addNewTodo(action.todo);
         const todos = yield isoRes.json();
-        yield put({ type: actions.ADD_TODO_SUCCESS});
-        yield put ({ type: actions.GET_ALL_TODOS_SUCCESS, todos: todos});
-    }
+        yield put ({ type: actions.ADD_TODO_SUCCESS});
+        yield put({ type: actions.GET_ALL_TODOS_SUCCESS, todos: todos});    }
     catch (err) {
         console.log(err)
     }
@@ -26,9 +25,8 @@ function* addTodoSaga(action) {
 function* editTodoSaga(action) {
     try {const isoRes = yield api.editTodo(action.id, action.edits);
     const todos = yield isoRes.json();
-    yield put({type: actions.EDIT_TODO_SUCCESS})
-    yield put ({type: actions.GET_ALL_TODOS_SUCCESS, todos: todos});
-    }
+    yield put ({type: actions.EDIT_TODO_SUCCESS})
+    yield put({ type: actions.GET_ALL_TODOS_SUCCESS, todos: todos});    }
     catch (err) {
         console.log(err)
     }
@@ -37,10 +35,10 @@ function* editTodoSaga(action) {
 function* removeTodoSaga(action) {
     try{
         const isoRes = yield api.deleteTodo(action.id);
-        const todos = isoRes.json();
-        yield put({type: actions.REMOVE_TODO_SUCCESS});
-        yield put ({type: actions.GET_ALL_TODOS_SUCCESS, todos: todos})
-    }
+        const todos = yield isoRes.json();
+        yield put ({type: actions.REMOVE_TODO_SUCCESS});
+        console.log(todos)
+        yield put({ type: actions.GET_ALL_TODOS_SUCCESS, todos: todos});    }
     catch (err) {
         console.log(err)
     }
@@ -49,9 +47,8 @@ function* completeTodoSaga(action) {
 	try {
 		const response = yield api.completeTodo(action.id)
 		const todos = yield response.json();
-		yield put({ type: actions.COMPLETE_TODO_SUCCEEDED });
-		yield put({ type: actions.FETCH_TODOS_SUCCEEDED, todos: todos });
-	} catch (err) {
+		yield put ({ type: actions.COMPLETE_TODO_SUCCESS });
+        yield put({ type: actions.GET_ALL_TODOS_SUCCESS, todos: todos});	} catch (err) {
 		console.log(err)
 	}
 };

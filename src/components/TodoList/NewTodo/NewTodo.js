@@ -15,7 +15,7 @@ class NewTodo extends Component {
         this.setState({title: e.target.value})
     }
 
-    handleSubmit = (state) => {
+    handleSubmit = () => {
         this.props.onAddTodo(this.state.title);
         this.setState({title: ''})
     }

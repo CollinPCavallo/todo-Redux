@@ -6,10 +6,10 @@ export const addTodo = (todo) => ({
     todo
 });
 
-export const editOneTodo = (id, updates) => ({
+export const editOneTodo = (id, edits) => ({
     type: actions.EDIT_TODO_REQUEST,
     id,
-    updates
+    edits
 });
 
 export const removeTodo = (id) => ({

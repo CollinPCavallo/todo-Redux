@@ -17,7 +17,7 @@ const styles = theme => ({
   });
   
 
-const TodoListItem = ({todo, classes, removeTodo, completeTodo, history, clicked,complete}) => {
+const TodoListItem = ({todo, classes, removeTodo, completeTodo, history, clicked,complete, remove}) => {
 
     return (
         <Grid item xs={12}>
@@ -39,7 +39,7 @@ const TodoListItem = ({todo, classes, removeTodo, completeTodo, history, clicked
                         disabled={todo.completed}/>
             <IconButton aria-label="Delete">
                           <DeleteOutlineSharp 
-                          onClick={clicked}/>
+                          onClick={remove}/>
             </IconButton>
             </ListItemSecondaryAction>
             </ListItem>

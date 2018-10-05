@@ -3,7 +3,6 @@ import './TodoList.css'
 import { connect } from 'react-redux';
 import { Grid, List, Paper, withStyles } from '@material-ui/core/';
 import { withRouter } from 'react-router-dom';
-
 import TodoListItem from './TodoListItem/TodoListItem';
 import NewTodo from './NewTodo/NewTodo';
 import { addTodo, getAllTodos, completeOneTodo, removeTodo} from '../../store/actions/todo';
@@ -25,7 +24,6 @@ class TodoList extends Component {
         this.props.history.push('/')
     }
     onRemoveHandler = id => {
-
         this.props.onDeleteTodo(id);
         this.props.history.push('/')
     }
@@ -42,7 +40,7 @@ class TodoList extends Component {
                             <TodoListItem 
                                 key={todo.id} 
                                 todo={todo} 
-                                delete={() => this.onRemoveHandler(todo.id)}
+                                remove={() => this.onRemoveHandler(todo.id)}
                                 complete={() => this.onCompleteHandler(todo.id)}/>
                         )}
                     </List>
