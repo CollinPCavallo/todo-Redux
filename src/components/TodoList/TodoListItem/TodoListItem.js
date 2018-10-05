@@ -17,7 +17,7 @@ const styles = theme => ({
   });
   
 
-const TodoListItem = ({todo, classes, removeTodo, completeTodo, history}) => {
+const TodoListItem = ({todo, classes, removeTodo, completeTodo, history, clicked,complete}) => {
 
     return (
         <Grid item xs={12}>
@@ -34,12 +34,12 @@ const TodoListItem = ({todo, classes, removeTodo, completeTodo, history}) => {
                     <ListItemSecondaryAction>
                     <Checkbox
                         style={{tabIndex: '-1'}}
-                        onChange={() => completeTodo(todo.id)}
+                        onChange={complete}
                         checked={todo.completed}
                         disabled={todo.completed}/>
             <IconButton aria-label="Delete">
                           <DeleteOutlineSharp 
-                          onClick={() => removeTodo(todo.id)}/>
+                          onClick={clicked}/>
             </IconButton>
             </ListItemSecondaryAction>
             </ListItem>

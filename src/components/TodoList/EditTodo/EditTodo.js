@@ -4,7 +4,7 @@ import { Grid, Paper, TextField, Button, withStyles } from "@material-ui/core";
 import ArrowBackSharp from '@material-ui/icons/ArrowBackSharp'
 import green from '@material-ui/core/colors/green'
 import {removeTodo, getAllTodos} from '../../../store/actions/todo';
-import {editTodo, completeTodo} from '../../../utils/api'
+import {editTodo, completeTodo, deleteTodo} from '../../../utils/api'
 
 const styles = theme => ({
     root: {
@@ -65,7 +65,9 @@ class EditTodo extends Component {
         this.props.history.push('/')
     }
     onRemoveHandler = id => {
-        this.props.onDeleteTodo(id)
+        deleteTodo(id).then(res => {
+            res.json().then(response => this.props.getTodos(response))
+        })
         this.props.history.push('/')
     }
     render() {

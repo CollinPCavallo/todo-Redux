@@ -23,3 +23,8 @@ export const completeTodo = (id) => {
         method: 'PUT'
     })
 }
+export const deleteTodo = (id) => {
+    return Fetch('https://practiceapi.devmountain.com/api/tasks/' + id, {
+        method: 'DELETE'
+    })
+}

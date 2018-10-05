@@ -6,7 +6,8 @@ import { withRouter } from 'react-router-dom';
 
 import TodoListItem from './TodoListItem/TodoListItem';
 import NewTodo from './NewTodo/NewTodo';
-import { addTodo } from '../../store/actions/todo';
+import { addTodo, getAllTodos} from '../../store/actions/todo';
+import {completeTodo, deleteTodo} from '../../utils/api'
 
 const styles = theme => ({
     root: {
@@ -20,6 +21,18 @@ const styles = theme => ({
   });
 
 class TodoList extends Component {
+    onCompleteHandler = id => {
+        completeTodo(id).then(res => {
+            res.json().then(response => this.props.getTodos(response))
+        })
+        this.props.history.push('/')
+    }
+    onRemoveHandler = id => {
+        deleteTodo(id).then(res => {
+            res.json().then(response => this.props.getTodos(response))
+        })
+        this.props.history.push('/')
+    }
     render() {
         const {classes} = this.props
         return (
@@ -32,7 +45,9 @@ class TodoList extends Component {
                         {this.props.todos.map(todo => 
                             <TodoListItem 
                                 key={todo.id} 
-                                todo={todo} />
+                                todo={todo} 
+                                delete={() => this.onRemoveHandler(todo.id)}
+                                complete={() => this.onCompleteHandler(todo.id)}/>
                         )}
                     </List>
               </Paper>
@@ -53,6 +68,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onAddTodo: (title) => dispatch(addTodo(title)),
+        getTodos: (todos) => dispatch(getAllTodos(todos))
+        
     }
 }
 
