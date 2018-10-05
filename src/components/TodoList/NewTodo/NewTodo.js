@@ -1,18 +1,25 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import { TextField, Grid, Button } from '@material-ui/core';
+import {addNewTodo} from '../../../utils/api';
+import {addTodo, getAllTodos} from '../../../store/actions/todo'
 
 
 class NewTodo extends Component {
     
     state = {
-        title: ''
+        title: "",
+		description: "",
+		completed: false
     }
     onChangeHandler = e => {
         this.setState({title: e.target.value})
     }
 
-    handleSubmit = () => {
-        this.props.clicked(this.state.title)
+    handleSubmit = (state) => {
+        addNewTodo(this.state.title).then((res) => {
+            res.json().then(response => this.props.getTodos(response))
+        })
         this.setState({title: ''})
     }
     render() {
@@ -42,6 +49,11 @@ class NewTodo extends Component {
         )
     }
 }
+const mapDispatchToProps = dispatch => {
+    return {
+        onAddTodo: (todo) => dispatch(addTodo(todo)),
+        getTodos: (todos) => dispatch(getAllTodos(todos))
+    }
+}
 
-
-export default NewTodo;
+export default connect(null, mapDispatchToProps)(NewTodo);

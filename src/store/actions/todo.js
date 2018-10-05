@@ -5,12 +5,12 @@ export const getTodo = (id) => ({
     id
 });
 
-export const addTodo = (title) => ({
+export const addTodo = (todo) => ({
     type: actions.ADD_TODO,
-    title
+    todo
 });
 
-export const editTodo = (id, updates) => ({
+export const editOneTodo = (id, updates) => ({
     type: actions.EDIT_TODO,
     id,
     updates
@@ -21,11 +21,12 @@ export const removeTodo = (id) => ({
     id
 });
 
-export const completeTodo = (id) => ({
+export const completeOneTodo = (id) => ({
     type: actions.COMPLETE_TODO,
     id
 });
 
-export const getAllTodos = () => ({
-    type: actions.GET_ALL_TODOS
+export const getAllTodos = (todos) => ({
+    type: actions.GET_ALL_TODOS,
+    todos
 })

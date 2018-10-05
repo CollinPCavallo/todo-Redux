@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import { Grid, Paper, TextField, Button, withStyles } from "@material-ui/core";
 import ArrowBackSharp from '@material-ui/icons/ArrowBackSharp'
 import green from '@material-ui/core/colors/green'
-import {editTodo, completeTodo, removeTodo} from '../../../store/actions/todo';
+import {removeTodo, getAllTodos} from '../../../store/actions/todo';
+import {editTodo, completeTodo} from '../../../utils/api'
 
 const styles = theme => ({
     root: {
@@ -30,9 +31,7 @@ class EditTodo extends Component {
         title: '',
         description: ''
     }
-    componentDidMount() {
-        this.setState({title: this.props.todo.title, description: this.props.todo.description})
-    }
+
     handleInputChange = (e) => {
         const {name , value } = e.target;
         this.setState({ [name]: value });
@@ -52,12 +51,17 @@ class EditTodo extends Component {
             description,
             completed
         }
-        this.props.onEditTodo(id, updatedTodo);
+        editTodo(id, updatedTodo).then(res => {
+            res.json().then(response => this.props.getTodos(response))
+        })
         this.props.history.push('/')
+        
 
     }
     onCompleteHandler = id => {
-        this.props.onCompleteTodo(id)
+        completeTodo(id).then(res => {
+            res.json().then(response => this.props.getTodos(response))
+        })
         this.props.history.push('/')
     }
     onRemoveHandler = id => {
@@ -85,7 +89,7 @@ class EditTodo extends Component {
                                             id='editTitle'
                                             name='title'
                                             label='Title'
-                                            value={this.state.title}
+                                            value={this.props.todo.title}
                                             onChange={this.handleInputChange}
                                         />
                                         
@@ -95,7 +99,7 @@ class EditTodo extends Component {
                                             name='description'
                                             id='editDescription'
                                             label='Description'
-                                            value={this.state.description}
+                                            value={this.props.todo.description}
                                             onChange={this.handleInputChange}
                                         />
                                     </Grid>  
@@ -105,6 +109,7 @@ class EditTodo extends Component {
                                             variant='contained'
                                             size='small'
                                             color='primary'
+                                            disabled={this.props.todo.completed}
                                             className={classes.cssRoot}
                                             onClick={() => this.onCompleteHandler(this.props.todo.id)}>
                                         Complete
@@ -150,7 +155,7 @@ class EditTodo extends Component {
     }
 };
 const mapStateToProps = (state, props) => {
-    const loadedTodo = state.todos.find(todo => todo.id === props.match.params.id)
+    const loadedTodo = state.todos.find(todo => todo.id === +props.match.params.id)
     const initData = { title: loadedTodo.title, description: loadedTodo.description }
     return {
         initialData: initData,
@@ -161,7 +166,8 @@ const mapDispatchToProps = dispatch => {
     return {
         onEditTodo: (id, updates) => dispatch(editTodo(id,updates)),
         onCompleteTodo: (id) => dispatch(completeTodo(id)),
-        onDeleteTodo: (id) => dispatch(removeTodo(id))
+        onDeleteTodo: (id) => dispatch(removeTodo(id)),
+        getTodos: (todos) => dispatch(getAllTodos(todos))
     }
 }
 

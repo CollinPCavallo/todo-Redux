@@ -6,16 +6,15 @@ const initState = {
 
 const todoReducer = (state = initState, action) => {
     switch (action.type) {
-            case 'ADD_TODO' : {
-            const newArray = {
-                title: action.title,
-                id: Math.random().toFixed(3),
-                completed: false,
-                description:''
-            }
+            case 'GET_ALL_TODOS' :
             return {
                 ...state,
-                todos: state.todos.concat(newArray),
+                todos: action.todos
+            } 
+
+            case 'ADD_TODO' : {
+            return {
+                ...state,
             }
         }
             case 'REMOVE_TODO' :
@@ -31,8 +30,8 @@ const todoReducer = (state = initState, action) => {
             case 'EDIT_TODO' : {
                 return {
                     ...state,
-                    todos: state.todos.map(todo=> todo.id === action.id ? {...todo, description: action.updates.description} : todo)
-                }
+                    todos: state.map((todo) => {
+                        if(todo.id === action.id){return {...todo,...action.updates}}return todo;})};
             }
             default:
                 return state

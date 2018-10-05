@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import { ListItem, ListItemText, ListItemSecondaryAction, withStyles, Checkbox, IconButton, Grid } from '@material-ui/core';
 import DeleteOutlineSharp from '@material-ui/icons/DeleteOutlineSharp';
 import { withRouter } from 'react-router-dom';
-import {removeTodo, completeTodo } from '../../../store/actions/todo'
+import {removeTodo, completeOneTodo } from '../../../store/actions/todo'
 
 const styles = theme => ({
     root: {
@@ -53,6 +53,6 @@ const TodoListItem = ({todo, classes, removeTodo, completeTodo, history}) => {
 };
 const mapDispatchToProps = dispatch => ({
     removeTodo: (id) => dispatch(removeTodo(id)),
-    completeTodo: (id) => dispatch(completeTodo(id))
+    completeTodo: (id) => dispatch(completeOneTodo(id))
 })
 export default connect(null, mapDispatchToProps)(withStyles(styles)(withRouter(TodoListItem)));
