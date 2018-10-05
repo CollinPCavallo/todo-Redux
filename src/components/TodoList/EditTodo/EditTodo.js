@@ -3,8 +3,7 @@ import {connect} from 'react-redux';
 import { Grid, Paper, TextField, Button, withStyles } from "@material-ui/core";
 import ArrowBackSharp from '@material-ui/icons/ArrowBackSharp'
 import green from '@material-ui/core/colors/green'
-import {removeTodo, getAllTodos} from '../../../store/actions/todo';
-import {editTodo, completeTodo, deleteTodo} from '../../../utils/api'
+import {removeTodo, getAllTodos, completeOneTodo, editOneTodo} from '../../../store/actions/todo';
 
 const styles = theme => ({
     root: {
@@ -51,23 +50,17 @@ class EditTodo extends Component {
             description,
             completed
         }
-        editTodo(id, updatedTodo).then(res => {
-            res.json().then(response => this.props.getTodos(response))
-        })
+        this.props.onEditTodo(id, updatedTodo)
         this.props.history.push('/')
         
 
     }
     onCompleteHandler = id => {
-        completeTodo(id).then(res => {
-            res.json().then(response => this.props.getTodos(response))
-        })
+        this.props.onCompleteTodo(id)
         this.props.history.push('/')
     }
     onRemoveHandler = id => {
-        deleteTodo(id).then(res => {
-            res.json().then(response => this.props.getTodos(response))
-        })
+        this.props.onDeleteTodo(id)
         this.props.history.push('/')
     }
     render() {
@@ -166,8 +159,8 @@ const mapStateToProps = (state, props) => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        onEditTodo: (id, updates) => dispatch(editTodo(id,updates)),
-        onCompleteTodo: (id) => dispatch(completeTodo(id)),
+        onEditTodo: (id, updates) => dispatch(editOneTodo(id,updates)),
+        onCompleteTodo: (id) => dispatch(completeOneTodo(id)),
         onDeleteTodo: (id) => dispatch(removeTodo(id)),
         getTodos: (todos) => dispatch(getAllTodos(todos))
     }

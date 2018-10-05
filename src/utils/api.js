@@ -1,16 +1,16 @@
 import Fetch from 'isomorphic-fetch';
 
-export const fetchAllTodos = () => {
+const getAllTodosAPI = () => {
     return Fetch('https://practiceapi.devmountain.com/api/tasks')
 }
-export const addNewTodo = (title) => {
+const addNewTodo = (title) => {
     return Fetch('https://practiceapi.devmountain.com/api/tasks', {
         method: 'POST',
         body: JSON.stringify({title: title}),
         headers: {"Content-Type" : "application/json"}
     })
 }
-export const editTodo = (id, edits) => {
+const editTodo = (id, edits) => {
     return Fetch('https://practiceapi.devmountain.com/api/tasks/' + id, {
         method: 'PATCH',
         body: JSON.stringify(edits),
@@ -18,13 +18,14 @@ export const editTodo = (id, edits) => {
         
     });
 }
-export const completeTodo = (id) => {
+const completeTodo = (id) => {
     return Fetch('https://practiceapi.devmountain.com/api/tasks/' + id, {
         method: 'PUT'
     })
 }
-export const deleteTodo = (id) => {
+const deleteTodo = (id) => {
     return Fetch('https://practiceapi.devmountain.com/api/tasks/' + id, {
         method: 'DELETE'
     })
 }
+export default { getAllTodosAPI, addNewTodo, editTodo, completeTodo, deleteTodo }

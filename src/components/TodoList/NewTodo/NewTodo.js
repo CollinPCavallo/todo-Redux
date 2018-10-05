@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { TextField, Grid, Button } from '@material-ui/core';
-import {addNewTodo} from '../../../utils/api';
 import {addTodo, getAllTodos} from '../../../store/actions/todo'
 
 
@@ -17,9 +16,7 @@ class NewTodo extends Component {
     }
 
     handleSubmit = (state) => {
-        addNewTodo(this.state.title).then((res) => {
-            res.json().then(response => this.props.getTodos(response))
-        })
+        this.props.onAddTodo(this.state.title);
         this.setState({title: ''})
     }
     render() {
