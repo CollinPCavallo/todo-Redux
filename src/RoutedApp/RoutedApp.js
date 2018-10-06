@@ -9,6 +9,7 @@ const RoutedApp = () => (
         <Switch>
             <Route exact path='/' component={App} />
             <Route exact path='/edit/:id' component={EditTodo} />
+            <Redirect from='*' to='/' />
         </Switch>
     </BrowserRouter>
 )
