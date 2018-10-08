@@ -1,8 +1,8 @@
-import actions from '../actions/actionTypes'
+import actions from "../actions/actionTypes";
 
 const initState = {
   todos: []
-}
+};
 
 const todoReducer = (state = initState, action) => {
   switch (action.type) {
@@ -10,26 +10,23 @@ const todoReducer = (state = initState, action) => {
       return {
         ...state,
         todos: action.todos
-      }
-    case actions.EDIT_TODO:
-      {
-        return {
-          ...state,
-          todos: state
-            .todos
-            .map((todo) => {
-              if (todo.id === action.id) {
-                return {
-                  ...todo,
-                  ...action.edits
-                }
-              }
-              return todo
-            })
-        }
-      }
+      };
+    case actions.EDIT_TODO: {
+      return {
+        ...state,
+        todos: state.todos.map(todo => {
+          if (todo.id === action.id) {
+            return {
+              ...todo,
+              ...action.edits
+            };
+          }
+          return todo;
+        })
+      };
+    }
     default:
-      return state
+      return state;
   }
-}
-export default todoReducer
+};
+export default todoReducer;
