@@ -1,7 +1,15 @@
-import React from 'react'// eslint-disable-line no-unused-vars
+import React from 'react' // eslint-disable-line no-unused-vars
 import { connect } from 'react-redux'
-import { ListItem, ListItemText, ListItemSecondaryAction, withStyles, Checkbox, IconButton, Grid } from '@material-ui/core'// eslint-disable-line no-unused-vars
-import DeleteOutlineSharp from '@material-ui/icons/DeleteOutlineSharp'// eslint-disable-line no-unused-vars
+import {
+  ListItem,
+  ListItemText,
+  ListItemSecondaryAction,
+  withStyles,
+  Checkbox,
+  IconButton,
+  Grid
+} from '@material-ui/core' // eslint-disable-line no-unused-vars
+import DeleteOutlineSharp from '@material-ui/icons/DeleteOutlineSharp' // eslint-disable-line no-unused-vars
 import { withRouter } from 'react-router-dom'
 import { removeTodo, completeOneTodo } from '../../../store/actions/todo'
 
@@ -16,7 +24,16 @@ const styles = theme => ({
   }
 })
 
-const TodoListItem = ({ todo, classes, removeTodo, completeTodo, history, clicked, complete, remove }) => {
+const TodoListItem = ({
+  todo,
+  classes,
+  removeTodo,
+  completeTodo,
+  history,
+  clicked,
+  complete,
+  remove
+}) => {
   return (
     <Grid item xs={12}>
 
@@ -25,19 +42,21 @@ const TodoListItem = ({ todo, classes, removeTodo, completeTodo, history, clicke
           <ListItem
             button
             dense
-            className={todo.completed ? [classes.completed, classes.root].join(' ') : classes.root}
-            onClick={() => history.push('/edit/' + todo.id)}
-          >
+            className={todo.completed
+              ? [classes.completed, classes.root].join(' ')
+              : classes.root}
+            onClick={() => history.push('/edit/' + todo.id)}>
             <ListItemText primary={todo.id + ' : ' + todo.title} />
             <ListItemSecondaryAction>
               <Checkbox
-                style={{ tabIndex: '-1' }}
+                style={{
+                  tabIndex: '-1'
+                }}
                 onChange={complete}
                 checked={todo.completed}
-                disabled={todo.completed}/>
+                disabled={todo.completed} />
               <IconButton aria-label="Delete">
-                <DeleteOutlineSharp
-                  onClick={remove}/>
+                <DeleteOutlineSharp onClick={remove} />
               </IconButton>
             </ListItemSecondaryAction>
           </ListItem>

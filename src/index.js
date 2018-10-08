@@ -1,27 +1,22 @@
-import React from 'react'// eslint-disable-line no-unused-vars
+import React from 'react' // eslint-disable-line no-unused-vars
 import ReactDOM from 'react-dom'
 import './index.css'
-import { createStore, compose, applyMiddleware, combineReducers } from 'redux'
-import RoutedApp from './RoutedApp/RoutedApp'// eslint-disable-line no-unused-vars
-import { Provider } from 'react-redux'// eslint-disable-line no-unused-vars
+import {createStore, compose, applyMiddleware, combineReducers} from 'redux'
+import RoutedApp from './RoutedApp/RoutedApp' // eslint-disable-line no-unused-vars
+import {Provider} from 'react-redux' // eslint-disable-line no-unused-vars
 import todoReducer from './store/reducers/todoReducer'
 import createSagaMiddleware from 'redux-saga'
 import * as serviceWorker from './serviceWorker'
-import { watcherSaga } from './store/saga'
+import {watcherSaga} from './store/saga'
 import errorReducer from './store/reducers/errorReducer'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const sagaMiddleware = createSagaMiddleware()
-const store = createStore(
-  combineReducers({
-    todos: todoReducer,
-    errors: errorReducer
-  }),
-  composeEnhancers(applyMiddleware(sagaMiddleware)))
+const store = createStore(combineReducers({todos: todoReducer, errors: errorReducer}), composeEnhancers(applyMiddleware(sagaMiddleware)))
 sagaMiddleware.run(watcherSaga)
 const app = (
   <Provider store={store}>
-    <RoutedApp />
+    <RoutedApp/>
   </Provider>
 )
 

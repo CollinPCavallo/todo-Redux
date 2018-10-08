@@ -2,7 +2,7 @@ import { takeEvery, call, put } from 'redux-saga/effects'
 import actions from '../store/actions/actionTypes'
 import api from '../utils/api'
 
-function * getTodosSaga () {
+function* getTodosSaga() {
   try {
     const isoRes = yield call(api.getAllTodosAPI)
     const todos = yield isoRes.json()
@@ -11,7 +11,8 @@ function * getTodosSaga () {
     yield put({ type: actions.GET_ALL_TODOS_FAILED, error: err })
   }
 }
-function * addTodoSaga (action) {
+
+function* addTodoSaga(action) {
   try {
     const isoRes = yield api.addNewTodo(action.todo)
     const todos = yield isoRes.json()
@@ -21,7 +22,8 @@ function * addTodoSaga (action) {
     yield put({ type: actions.ADD_TODO_FAILED, error: err })
   }
 }
-function * editTodoSaga (action) {
+
+function* editTodoSaga(action) {
   try {
     const isoRes = yield api.editTodo(action.id, action.edits)
     const todos = yield isoRes.json()
@@ -31,7 +33,8 @@ function * editTodoSaga (action) {
     yield put({ type: actions.EDIT_TODO_FAILED, error: err })
   }
 }
-function * removeTodoSaga (action) {
+
+function* removeTodoSaga(action) {
   try {
     const isoRes = yield api.deleteTodo(action.id)
     const todos = yield isoRes.json()
@@ -41,7 +44,8 @@ function * removeTodoSaga (action) {
     yield put({ type: actions.REMOVE_TODO_FAILED, error: err })
   }
 }
-function * completeTodoSaga (action) {
+
+function* completeTodoSaga(action) {
   try {
     const response = yield api.completeTodo(action.id)
     const todos = yield response.json()
@@ -52,7 +56,7 @@ function * completeTodoSaga (action) {
   }
 }
 
-export function * watcherSaga () {
+export function* watcherSaga() {
   yield takeEvery(actions.GET_ALL_TODOS_REQUEST, getTodosSaga)
   yield takeEvery(actions.ADD_TODO_REQUEST, addTodoSaga)
   yield takeEvery(actions.REMOVE_TODO_REQUEST, removeTodoSaga)

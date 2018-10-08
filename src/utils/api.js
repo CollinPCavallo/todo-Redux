@@ -6,16 +6,16 @@ const getAllTodosAPI = () => {
 const addNewTodo = (title) => {
 	return Fetch("https://practiceapi.devmountain.com/api/tasks", {
 		method: "POST",
-		body: JSON.stringify({title: title}),
-		headers: {"Content-Type" : "application/json"}
+		body: JSON.stringify({ title: title }),
+		headers: { "Content-Type": "application/json" }
 	});
 };
 const editTodo = (id, edits) => {
 	return Fetch("https://practiceapi.devmountain.com/api/tasks/" + id, {
 		method: "PATCH",
 		body: JSON.stringify(edits),
-		headers: {"Content-Type" : "application/json"}
-        
+		headers: { "Content-Type": "application/json" }
+
 	});
 };
 const completeTodo = (id) => {
