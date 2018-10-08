@@ -11,6 +11,15 @@ const styles = theme => ({
       width: '100%',
       maxWidth: 360,
     },
+    container: {
+        width: '100%',
+        maxWidth: '360px',
+        margin: '20px auto',
+        backgroundColor: 'rgb(209, 209, 209)',
+        border: '1px solid #eee',
+        boxShadow: '0 2px 3px #ccc',
+        padding: '20px',
+    },
     paper: {
       padding: theme.spacing.unit * 2,
       textAlign: 'center',
@@ -50,7 +59,6 @@ class EditTodo extends Component {
             description,
             completed
         }
-        console.log(updatedTodo)
         this.props.onEditTodo(id, updatedTodo)
         this.props.history.push('/')
         
@@ -68,7 +76,7 @@ class EditTodo extends Component {
         const {classes} = this.props
 
         return (
-            <div className='Container'>
+            <div className={classes.container}>
                 <div className={classes.root}>
                     <Grid container spacing={24}>
                         <Grid item xs={12}>
@@ -151,7 +159,7 @@ class EditTodo extends Component {
     }
 };
 const mapStateToProps = (state, props) => {
-    const loadedTodo = state.todos.find(todo => todo.id === +props.match.params.id)
+    const loadedTodo = state.todos.todos.find(todo => todo.id === +props.match.params.id)
     const initData = { title: loadedTodo.title, description: loadedTodo.description }
     return {
         initialData: initData,

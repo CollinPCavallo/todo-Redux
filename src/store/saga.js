@@ -9,7 +9,7 @@ function* getTodosSaga(action) {
         yield put({ type: actions.GET_ALL_TODOS_SUCCESS, todos: todos});
     }
     catch (err) {
-        console.log(err);
+        yield put({type: actions.GET_ALL_TODOS_FAILED, error: err});
     }
 }
 function* addTodoSaga(action) {
@@ -19,16 +19,17 @@ function* addTodoSaga(action) {
         yield put ({ type: actions.ADD_TODO_SUCCESS});
         yield put({ type: actions.GET_ALL_TODOS_SUCCESS, todos: todos});    }
     catch (err) {
-        console.log(err)
+        yield put({type: actions.ADD_TODO_FAILED, error: err});
     }
 }
 function* editTodoSaga(action) {
-    try {const isoRes = yield api.editTodo(action.id, action.edits);
-    const todos = yield isoRes.json();
-    yield put ({type: actions.EDIT_TODO_SUCCESS})
-    yield put({ type: actions.GET_ALL_TODOS_SUCCESS, todos: todos});    }
+        try {const isoRes = yield api.editTodo(action.id, action.edits);
+        const todos = yield isoRes.json();
+        yield put ({type: actions.EDIT_TODO_SUCCESS})
+        yield put({ type: actions.GET_ALL_TODOS_SUCCESS, todos: todos});    
+    }
     catch (err) {
-        console.log(err)
+        yield put({type: actions.EDIT_TODO_FAILED, error: err});
     }
 
 }
@@ -37,19 +38,19 @@ function* removeTodoSaga(action) {
         const isoRes = yield api.deleteTodo(action.id);
         const todos = yield isoRes.json();
         yield put ({type: actions.REMOVE_TODO_SUCCESS});
-        console.log(todos)
         yield put({ type: actions.GET_ALL_TODOS_SUCCESS, todos: todos});    }
     catch (err) {
-        console.log(err)
+        yield put({type: actions.REMOVE_TODO_FAILED, error: err});
     }
 }
 function* completeTodoSaga(action) {
 	try {
-		const response = yield api.completeTodo(action.id)
-		const todos = yield response.json();
-		yield put ({ type: actions.COMPLETE_TODO_SUCCESS });
-        yield put({ type: actions.GET_ALL_TODOS_SUCCESS, todos: todos});	} catch (err) {
-		console.log(err)
+            const response = yield api.completeTodo(action.id)
+            const todos = yield response.json();
+            yield put ({ type: actions.COMPLETE_TODO_SUCCESS });
+            yield put({ type: actions.GET_ALL_TODOS_SUCCESS, todos: todos});	}
+        catch (err) {
+            yield put({type: actions.COMPLETE_TODO_FAILED, error: err});
 	}
 };
 

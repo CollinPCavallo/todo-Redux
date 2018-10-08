@@ -1,9 +1,0 @@
-.Container {
-    width: 100%;
-    max-width: 360px;
-    margin: 20px auto;
-    background-color: rgb(209, 209, 209);
-    border: 1px solid #eee;
-    box-shadow: 0 2px 3px #ccc;
-    padding: 20px;
-}

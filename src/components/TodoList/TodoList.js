@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import './TodoList.css'
 import { connect } from 'react-redux';
-import { Grid, List, Paper, withStyles } from '@material-ui/core/';
+import { Grid, List, Paper, withStyles, Button } from '@material-ui/core/';
 import { withRouter } from 'react-router-dom';
 import TodoListItem from './TodoListItem/TodoListItem';
 import NewTodo from './NewTodo/NewTodo';
@@ -16,6 +15,15 @@ const styles = theme => ({
       textAlign: 'center',
       color: theme.palette.text.secondary,
     },
+    container : {
+        width: '100%',
+        maxWidth: '360px',
+        margin: '20px auto',
+        backgroundColor: 'rgb(209, 209, 209)',
+        border: '1px solid #eee',
+        boxShadow: '0 2px 3px #ccc',
+        padding: '20px',
+    }
   });
 
 class TodoList extends Component {
@@ -30,12 +38,22 @@ class TodoList extends Component {
     render() {
         const {classes} = this.props
         return (
-            <div className='Container'>
+            <div className={classes.container}>
             <Grid container spacing={24}>
             <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                 <NewTodo clicked={this.props.onAddTodo}/>
-                 <List>
+            {this.props.error ? 
+                <div>
+                    <h3>Something Went Wrong:   {this.props.error}</h3>
+                    <Button
+                        variant='contained'
+                        size='small'
+                        color='secondary'
+                        onClick={() => window.location.reload()}> 
+                    Go Back</Button>
+                </div>: 
+                <Paper className={classes.paper}>
+                    <NewTodo clicked={this.props.onAddTodo}/>
+                    <List>
                         {this.props.todos.map(todo => 
                             <TodoListItem 
                                 key={todo.id} 
@@ -44,7 +62,7 @@ class TodoList extends Component {
                                 complete={() => this.onCompleteHandler(todo.id)}/>
                         )}
                     </List>
-              </Paper>
+                </Paper>}
             </Grid>
             
             
@@ -56,7 +74,8 @@ class TodoList extends Component {
     
 const mapStateToProps = state => {
  return {
-     todos: state.todos
+     todos: state.todos.todos,
+     error: state.errors.error
     }
 }
 const mapDispatchToProps = dispatch => {
