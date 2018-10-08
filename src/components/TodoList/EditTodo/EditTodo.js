@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux';
 import { Grid, Paper, TextField, Button, withStyles } from "@material-ui/core";
-import ArrowBackSharp from '@material-ui/icons/ArrowBackSharp'
-import green from '@material-ui/core/colors/green'
+import ArrowBackSharp from '@material-ui/icons/ArrowBackSharp';
+import green from '@material-ui/core/colors/green';
 import {removeTodo, getAllTodos, completeOneTodo, editOneTodo} from '../../../store/actions/todo';
 
 const styles = theme => ({
@@ -35,22 +35,22 @@ const styles = theme => ({
     }
   });
 class EditTodo extends Component {
-    state={
+    state = {
         title: '',
         description: ''
-    }
+    };
 
     handleInputChange = (e) => {
         const {name , value } = e.target;
         this.setState({ [name]: value });
         this.props.todo[name]= value;
-    }
+    };
     onCancelHandler = () => {
 		const { todo, initialData } = this.props;
 		this.setState({ ...this.props.initialData });
 		todo.title = initialData.title;
 		todo.description = initialData.description;
-	}
+	};
 
     onSaveHandler = () => {
         const { title, description, completed, id } = this.props.todo;
@@ -63,15 +63,15 @@ class EditTodo extends Component {
         this.props.history.push('/')
         
 
-    }
+    };
     onCompleteHandler = id => {
         this.props.onCompleteTodo(id)
         this.props.history.push('/')
-    }
+    };
     onRemoveHandler = id => {
         this.props.onDeleteTodo(id)
         this.props.history.push('/')
-    }
+    };
     render() {
         const {classes} = this.props
 
@@ -165,7 +165,7 @@ const mapStateToProps = (state, props) => {
         initialData: initData,
         todo: loadedTodo
     }
-}
+};
 const mapDispatchToProps = dispatch => {
     return {
         onEditTodo: (id, edits) => dispatch(editOneTodo(id,edits)),
@@ -173,6 +173,6 @@ const mapDispatchToProps = dispatch => {
         onDeleteTodo: (id) => dispatch(removeTodo(id)),
         getTodos: (todos) => dispatch(getAllTodos(todos))
     }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(EditTodo));
